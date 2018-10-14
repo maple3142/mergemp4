@@ -1,7 +1,7 @@
 const noop = () => {}
 const runFFMPEGWorker = (opts, outcb = noop) =>
 	new Promise((res, rej) => {
-		const worker = new Worker('./lib/ffmpeg-worker-mp4.js')
+		const worker = new Worker('./lib/ffmpeg-worker-mp4.js', { name: 'FFmpeg worker' })
 		let stdout = ''
 		let stderr = ''
 		const ret = {}
@@ -33,32 +33,31 @@ const runFFMPEGWorker = (opts, outcb = noop) =>
 			}
 		}
 	})
-const runFFMPEG = (opts, outcb = noop) =>
-	new Promise((res, rej) => {
-		let stdout = ''
-		let stderr = ''
-		let ret = { result: null }
-		opts = Object.assign({}, opts, {
-			print: data => {
-				outcb({ stdout: data + '\n' })
-				stdout += data + '\n'
-			},
-			printErr: data => {
-				outcb({ stdout: data + '\n' })
-				stderr += data + '\n'
-			},
-			onExit: code => {
-				Object.assign(ret, { code, stdout, stderr })
-				if (code === 0) {
-					res(ret)
-				} else {
-					rej(ret)
-				}
-			}
-		})
-		ret.result = ffmpeg(opts)
-	})
-
+// const runFFMPEG = (opts, outcb = noop) =>
+// 	new Promise((res, rej) => {
+// 		let stdout = ''
+// 		let stderr = ''
+// 		let ret = { result: null }
+// 		opts = Object.assign({}, opts, {
+// 			print: data => {
+// 				outcb({ stdout: data + '\n' })
+// 				stdout += data + '\n'
+// 			},
+// 			printErr: data => {
+// 				outcb({ stdout: data + '\n' })
+// 				stderr += data + '\n'
+// 			},
+// 			onExit: code => {
+// 				Object.assign(ret, { code, stdout, stderr })
+// 				if (code === 0) {
+// 					res(ret)
+// 				} else {
+// 					rej(ret)
+// 				}
+// 			}
+// 		})
+// 		ret.result = ffmpeg(opts)
+// 	})
 const readFile = file =>
 	new Promise((res, rej) => {
 		const reader = new FileReader()
@@ -129,4 +128,4 @@ $form.addEventListener('submit', async e => {
 		//renderoutput(e)
 	}
 })
-runFFMPEG({ arguments: ['-version'] }).then(renderoutput)
+runFFMPEGWorker({ arguments: ['-version'] }).then(renderoutput)
