@@ -13,6 +13,6 @@
 	},
 	"scripts": {
 		"dev": "poi src/index.html --serve",
-		"build": "poi src/index.html"
+		"build": "poi src/index.html --public-url=/mergemp4/"
 	}
 }
