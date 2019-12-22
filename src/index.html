@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="./style.css" />
+		<title>Merge mp4 video and audio</title>
+	</head>
+
+	<body>
+		<div class="video filedrop">
+			<h1>Drop mp4 video here</h1>
+			<input type="file" id="video" />
+		</div>
+		<div class="audio filedrop">
+			<h1>Drop mp4 audio here</h1>
+			<input type="file" id="audio" />
+		</div>
+		<form class="form">
+			<span>File name:</span>
+			<input type="text" name="filename" value="output.mp4" />
+			<input type="submit" value="Genetate" />
+		</form>
+		<div>
+			<a href="./video.mp4">Example video</a>
+			<a href="./audio.mp4">Example audio</a>
+		</div>
+		<script src="./index.js"></script>
+	</body>
+</html>

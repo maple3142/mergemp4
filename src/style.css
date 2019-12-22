@@ -1,0 +1,33 @@
+* {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+div,
+form {
+	padding: 0.5em;
+}
+
+.filedrop {
+	height: 300px;
+}
+
+.form {
+	background: lightskyblue;
+}
+
+.video {
+	background: aqua;
+}
+
+.audio {
+	background: lightgreen;
+}
+
+.output {
+	background: lightcyan;
+	overflow-x: scroll;
+}
+
+.output.red {
+	background: lightcoral;
+}

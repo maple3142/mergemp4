@@ -1,0 +1,18 @@
+{
+	"name": "mergemp4",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/maple3142/mergemp4.git",
+	"author": "maple3142 <kirby741852963@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"poi": "^12.7.5"
+	},
+	"dependencies": {
+		"@ffmpeg/ffmpeg": "^0.5.2"
+	},
+	"scripts": {
+		"dev": "poi src/index.html --serve",
+		"build": "poi src/index.html"
+	}
+}
