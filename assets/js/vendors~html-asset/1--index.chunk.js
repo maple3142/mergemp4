@@ -16,10 +16,10 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 /*!**************************************************!*\
   !*** ./node_modules/@ffmpeg/ffmpeg/package.json ***!
   \**************************************************/
-/*! exports provided: name, version, description, main, directories, scripts, browser, repository, keywords, author, license, bugs, homepage, dependencies, devDependencies, default */
+/*! exports provided: name, version, description, main, directories, scripts, browser, repository, keywords, author, license, bugs, engines, homepage, dependencies, devDependencies, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"name\":\"@ffmpeg/ffmpeg\",\"version\":\"0.5.2\",\"description\":\"FFmpeg WebAssembly version\",\"main\":\"src/index.js\",\"directories\":{\"example\":\"examples\"},\"scripts\":{\"start\":\"node scripts/server.js\",\"build\":\"rimraf dist && webpack --config scripts/webpack.config.prod.js\",\"prepublishOnly\":\"npm run build\",\"lint\":\"eslint src\",\"wait\":\"rimraf dist && wait-on http://localhost:3000/dist/ffmpeg.dev.js\",\"test\":\"npm-run-all -p -r start test:all\",\"test:all\":\"npm-run-all wait test:node:all\",\"test:node\":\"nyc mocha --exit --bail --require ./scripts/test-helper.js\",\"test:node:all\":\"npm run test:node -- ./tests/*.test.js\",\"test:browser\":\"mocha-headless-chrome -a incognito -a no-sandbox -a disable-setuid-sandbox -a disable-logging -t 300000\",\"test:browser:ffmpeg\":\"npm run test:browser -- -f ./tests/ffmpeg.test.html\"},\"browser\":{\"./src/worker/node/index.js\":\"./src/worker/browser/index.js\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/ffmpegjs/ffmpeg.js.git\"},\"keywords\":[\"ffmpeg\",\"WebAssembly\",\"video\"],\"author\":\"Jerome Wu <jeromewus@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/ffmpegjs/ffmpeg.js/issues\"},\"homepage\":\"https://github.com/ffmpegjs/ffmpeg.js#readme\",\"dependencies\":{\"@ffmpeg/core\":\"^0.5.0\",\"idb\":\"^4.0.5\",\"is-url\":\"^1.2.4\",\"node-fetch\":\"^2.6.0\",\"regenerator-runtime\":\"^0.13.3\",\"resolve-url\":\"^0.2.1\"},\"devDependencies\":{\"@babel/core\":\"^7.6.4\",\"@babel/preset-env\":\"^7.6.3\",\"babel-loader\":\"^8.0.6\",\"cors\":\"^2.8.5\",\"eslint\":\"^6.1.0\",\"eslint-config-airbnb-base\":\"^14.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"expect.js\":\"^0.3.1\",\"express\":\"^4.17.1\",\"mocha\":\"^6.2.2\",\"mocha-headless-chrome\":\"^2.0.3\",\"npm-run-all\":\"^4.1.5\",\"nyc\":\"^14.1.1\",\"wait-on\":\"^3.3.0\",\"webpack\":\"^4.41.2\",\"webpack-cli\":\"^3.3.9\",\"webpack-dev-middleware\":\"^3.7.2\"}}");
+module.exports = JSON.parse("{\"name\":\"@ffmpeg/ffmpeg\",\"version\":\"0.6.1\",\"description\":\"FFmpeg WebAssembly version\",\"main\":\"src/index.js\",\"directories\":{\"example\":\"examples\"},\"scripts\":{\"start\":\"node scripts/server.js\",\"build\":\"rimraf dist && webpack --config scripts/webpack.config.prod.js\",\"prepublishOnly\":\"npm run build\",\"lint\":\"eslint src\",\"wait\":\"rimraf dist && wait-on http://localhost:3000/dist/ffmpeg.dev.js\",\"test\":\"npm-run-all -p -r start test:all\",\"test:all\":\"npm-run-all wait test:browser:ffmpeg test:node:all\",\"test:node\":\"nyc mocha --exit --bail --require ./scripts/test-helper.js\",\"test:node:all\":\"npm run test:node -- ./tests/*.test.js\",\"test:browser\":\"mocha-headless-chrome -a incognito -a no-sandbox -a disable-setuid-sandbox -a disable-logging -t 300000\",\"test:browser:ffmpeg\":\"npm run test:browser -- -f ./tests/ffmpeg.test.html\"},\"browser\":{\"./src/worker/node/index.js\":\"./src/worker/browser/index.js\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/ffmpegjs/ffmpeg.js.git\"},\"keywords\":[\"ffmpeg\",\"WebAssembly\",\"video\"],\"author\":\"Jerome Wu <jeromewus@gmail.com>\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/ffmpegjs/ffmpeg.js/issues\"},\"engines\":{\"node\":\">=10.5.0\"},\"homepage\":\"https://github.com/ffmpegjs/ffmpeg.js#readme\",\"dependencies\":{\"@ffmpeg/core\":\"^0.6.0\",\"idb\":\"^4.0.5\",\"is-electron\":\"^2.2.0\",\"is-url\":\"^1.2.4\",\"node-fetch\":\"^2.6.0\",\"regenerator-runtime\":\"^0.13.3\",\"resolve-url\":\"^0.2.1\"},\"devDependencies\":{\"@babel/core\":\"^7.6.4\",\"@babel/preset-env\":\"^7.6.3\",\"babel-loader\":\"^8.0.6\",\"cors\":\"^2.8.5\",\"eslint\":\"^6.1.0\",\"eslint-config-airbnb-base\":\"^14.0.0\",\"eslint-plugin-import\":\"^2.18.2\",\"expect.js\":\"^0.3.1\",\"express\":\"^4.17.1\",\"mocha\":\"^6.2.2\",\"mocha-headless-chrome\":\"^2.0.3\",\"npm-run-all\":\"^4.1.5\",\"nyc\":\"^14.1.1\",\"wait-on\":\"^3.3.0\",\"webpack\":\"^4.41.2\",\"webpack-cli\":\"^3.3.9\",\"webpack-dev-middleware\":\"^3.7.2\"}}");
 
 /***/ }),
 
@@ -80,16 +80,14 @@ module.exports = ({
 const createJob = __webpack_require__(/*! ./createJob */ "./node_modules/@ffmpeg/ffmpeg/src/createJob.js");
 const { log } = __webpack_require__(/*! ./utils/log */ "./node_modules/@ffmpeg/ffmpeg/src/utils/log.js");
 const getId = __webpack_require__(/*! ./utils/getId */ "./node_modules/@ffmpeg/ffmpeg/src/utils/getId.js");
-const extractProgress = __webpack_require__(/*! ./utils/extractProgress */ "./node_modules/@ffmpeg/ffmpeg/src/utils/extractProgress.js");
+const parseProgress = __webpack_require__(/*! ./utils/parseProgress */ "./node_modules/@ffmpeg/ffmpeg/src/utils/parseProgress.js");
 const resolvePaths = __webpack_require__(/*! ./utils/resolvePaths */ "./node_modules/@ffmpeg/ffmpeg/src/utils/resolvePaths.js");
+const getTransferables = __webpack_require__(/*! ./utils/getTransferables */ "./node_modules/@ffmpeg/ffmpeg/src/utils/getTransferables.js");
 const {
   defaultOptions,
   spawnWorker,
-  terminateWorker,
   onMessage,
-  send,
   fetchFile,
-  fs,
 } = __webpack_require__(/*! ./worker/node */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/index.js");
 
 let workerCounter = 0;
@@ -120,15 +118,21 @@ module.exports = (_options = {}) => {
 
   const startJob = ({ id: jobId, action, payload }) => (
     new Promise((resolve, reject) => {
-      log(`[${id}]: Start ${jobId}, action=${action}`);
-      setResolve(action, resolve);
-      setReject(action, reject);
-      send(worker, {
+      const packet = {
         workerId: id,
         jobId,
         action,
         payload,
-      });
+      };
+      log(`[${id}]: Start ${jobId}, action=${action}`);
+      setResolve(action, resolve);
+      setReject(action, reject);
+      /*
+       * By using Transferable in postMessage, we are able
+       * to send large files to worker
+       * @ref: https://github.com/ffmpegjs/ffmpeg.js/issues/8#issuecomment-572230128
+       */
+      worker.postMessage(packet, getTransferables(packet));
     })
   );
 
@@ -138,84 +142,90 @@ module.exports = (_options = {}) => {
     }))
   );
 
-  const syncfs = (populate, jobId) => (
+  const write = async (path, data, jobId) => (
     startJob(createJob({
-      id: jobId, action: 'syncfs', payload: { populate },
+      id: jobId,
+      action: 'FS',
+      payload: {
+        method: 'writeFile',
+        args: [path, await fetchFile(data)],
+      },
     }))
   );
 
-  const write = async (path, data) => {
-    await syncfs();
-    await fs.writeFile(path, await fetchFile(data));
-    await syncfs(true);
-    return {
-      path: `/data/${path}`,
-    };
-  };
-
-  const writeText = async (path, text) => {
-    await syncfs(true);
-    await fs.writeFile(path, text);
-    await syncfs(true);
-    return {
-      path: `/data/${path}`,
-    };
-  };
-
-  const read = async (path, del = true) => {
-    const data = await fs.readFile(path);
-    if (del) {
-      await fs.deleteFile(path);
-    }
-    return {
-      data,
-    };
-  };
-
-  const remove = async (path) => {
-    await fs.deleteFile(path);
-    return {
-      path: `/data/${path}`,
-    };
-  };
-
-  const run = (args, opts = {}, jobId) => (
+  const writeText = (path, text, jobId) => (
     startJob(createJob({
-      id: jobId, action: 'run', payload: { args, options: opts },
+      id: jobId,
+      action: 'FS',
+      payload: {
+        method: 'writeFile',
+        args: [path, text],
+      },
     }))
   );
 
-  const transcode = (input, output, opts = '', del = true, jobId) => (
-    run(
-      `-i /data/${input} ${opts} ${output}`,
-      { input, output, del },
-      jobId,
-    )
+  const read = (path, jobId) => (
+    startJob(createJob({
+      id: jobId,
+      action: 'FS',
+      payload: {
+        method: 'readFile',
+        args: [path],
+      },
+    }))
   );
 
-  const trim = (input, output, from, to, opts = '', del = true, jobId) => (
-    run(
-      `-i /data/${input} -ss ${from} -to ${to} ${opts} ${output}`,
-      { input, output, del },
-      jobId,
-    )
+  const remove = (path, jobId) => (
+    startJob(createJob({
+      id: jobId,
+      action: 'FS',
+      payload: {
+        method: 'unlink',
+        args: [path],
+      },
+    }))
   );
 
-  const concatDemuxer = async (input, output, opts = '', del = true, jobId) => {
-    const text = input.reduce((acc, path) => `${acc}\nfile ${path}`, '');
-    await writeText('concat_list.txt', text);
-    return run(`-f concat -safe 0 -i /data/concat_list.txt -c copy ${opts} ${output}`,
-      { del, output, input: [...input, 'concat_list.txt'] },
-      jobId);
-  };
+  const run = (args, jobId) => (
+    startJob(createJob({
+      id: jobId,
+      action: 'run',
+      payload: {
+        args,
+      },
+    }))
+  );
 
   const ls = (path, jobId) => (
     startJob(createJob({
       id: jobId,
       action: 'FS',
-      payload: { method: 'readdir', args: [path] },
+      payload: {
+        method: 'readdir',
+        args: [path],
+      },
     }))
   );
+
+  const transcode = (input, output, opts = '', jobId) => (
+    run(
+      `-i ${input} ${opts} ${output}`,
+      jobId,
+    )
+  );
+
+  const trim = (input, output, from, to, opts = '', jobId) => (
+    run(
+      `-i ${input} -ss ${from} -to ${to} ${opts} ${output}`,
+      jobId,
+    )
+  );
+
+  const concatDemuxer = async (input, output, opts = '', jobId) => {
+    const text = input.reduce((acc, path) => `${acc}\nfile ${path}`, '');
+    await writeText('concat_list.txt', text);
+    return run(`-f concat -safe 0 -i concat_list.txt ${opts} ${output}`, jobId);
+  };
 
   const terminate = async (jobId) => {
     if (worker !== null) {
@@ -223,33 +233,30 @@ module.exports = (_options = {}) => {
         id: jobId,
         action: 'terminate',
       }));
-      terminateWorker(worker);
+      worker.terminate();
       worker = null;
     }
     return Promise.resolve();
   };
 
   onMessage(worker, ({
-    workerId, jobId, status, action, data,
+    workerId, jobId, action, status, payload,
   }) => {
     if (status === 'resolve') {
+      const { message, data } = payload;
       log(`[${workerId}]: Complete ${jobId}`);
-      let d = data;
-      if (action === 'FS') {
-        const { method, data: _data } = data;
-        if (method === 'readFile') {
-          d = Uint8Array.from({ ..._data, length: Object.keys(_data).length });
-        } else {
-          d = _data;
-        }
-      }
-      resolves[action]({ jobId, data: d });
+      resolves[action]({
+        workerId,
+        jobId,
+        message,
+        data,
+      });
     } else if (status === 'reject') {
-      rejects[action](data);
-      throw Error(data);
+      rejects[action](payload);
+      throw Error(payload);
     } else if (status === 'progress') {
-      extractProgress(data, progress);
-      logger(data);
+      parseProgress(payload, progress);
+      logger(payload);
     }
   });
 
@@ -259,16 +266,15 @@ module.exports = (_options = {}) => {
     setResolve,
     setReject,
     load,
-    syncfs,
     write,
     writeText,
     read,
     remove,
+    ls,
     run,
     transcode,
     trim,
     concatDemuxer,
-    ls,
     terminate,
   };
 };
@@ -296,10 +302,104 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/extractProgress.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/extractProgress.js ***!
-  \******************************************************************/
+/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/getEnvironment.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/getEnvironment.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {const isElectron = __webpack_require__(/*! is-electron */ "./node_modules/is-electron/index.js");
+
+module.exports = (key) => {
+  const env = {};
+
+  if (isElectron()) {
+    env.type = 'electron';
+  } else if (typeof window === 'object') {
+    env.type = 'browser';
+  } else if (typeof importScripts === 'function') {
+    env.type = 'webworker';
+  } else if (typeof process === 'object' && "function" === 'function') {
+    env.type = 'node';
+  }
+
+  if (typeof key === 'undefined') {
+    return env;
+  }
+
+  return env[key];
+};
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/getId.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/getId.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = (prefix, cnt) => (
+  `${prefix}-${cnt}-${Math.random().toString(16).slice(3, 8)}`
+);
+
+
+/***/ }),
+
+/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/getTransferables.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/getTransferables.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = (packet) => {
+  const transferables = [];
+  const check = (b) => {
+    if (b instanceof Uint8Array) {
+      transferables.push(b.buffer);
+    } else if (b instanceof ArrayBuffer) {
+      transferables.push(b);
+    }
+  };
+  const { payload: { args, data } } = packet;
+  check(data);
+  if (Array.isArray(args)) {
+    args.forEach((arg) => check(arg));
+  }
+  return transferables;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/log.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/log.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+let logging = false;
+
+exports.logging = logging;
+
+exports.setLogging = (_logging) => {
+  logging = _logging;
+};
+
+exports.log = (...args) => (logging ? console.log.apply(this, args) : null);
+
+
+/***/ }),
+
+/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/parseProgress.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/parseProgress.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -327,61 +427,6 @@ module.exports = ({ message }, progress) => {
     }
   }
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/getEnvironment.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/getEnvironment.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = (key) => {
-  const env = {
-    type: (typeof window !== 'undefined') && (typeof window.document !== 'undefined') ? 'browser' : 'node',
-  };
-
-  if (typeof key === 'undefined') {
-    return env;
-  }
-  return env[key];
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/getId.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/getId.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = (prefix, cnt) => (
-  `${prefix}-${cnt}-${Math.random().toString(16).slice(3, 8)}`
-);
-
-
-/***/ }),
-
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/utils/log.js":
-/*!******************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/utils/log.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-let logging = false;
-
-exports.logging = logging;
-
-exports.setLogging = (_logging) => {
-  logging = _logging;
-};
-
-exports.log = (...args) => (logging ? console.log.apply(this, args) : null);
 
 
 /***/ }),
@@ -491,51 +536,6 @@ module.exports = async (_data) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/fs.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/worker/browser/fs.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-const { openDB } = __webpack_require__(/*! idb */ "./node_modules/idb/build/esm/index.js");
-
-const getDB = () => openDB('/data', 21);
-
-const getDataKeyAndMode = async (db) => {
-  const dummy = await db.get('FILE_DATA', '/data/.DUMMY');
-  const dataKey = Object.keys(dummy).filter((k) => !['mode', 'timestamp'].includes(k)).pop();
-  return { dataKey, mode: dummy.mode };
-};
-
-module.exports = {
-  readFile: async (path) => {
-    const db = await getDB();
-    const { dataKey } = await getDataKeyAndMode(db);
-    return (await db.get('FILE_DATA', `/data/${path}`))[dataKey];
-  },
-  writeFile: async (path, data) => {
-    const db = await getDB();
-    const { dataKey, mode } = await getDataKeyAndMode(db);
-    await db.put(
-      'FILE_DATA',
-      {
-        [dataKey]: data,
-        mode,
-        timestamp: new Date(),
-      },
-      `/data/${path}`,
-    );
-  },
-  deleteFile: async (path) => {
-    const db = await getDB();
-    await db.delete('FILE_DATA', `/data/${path}`);
-  },
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/index.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@ffmpeg/ffmpeg/src/worker/browser/index.js ***!
@@ -554,20 +554,14 @@ module.exports = {
  */
 const defaultOptions = __webpack_require__(/*! ./defaultOptions */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/defaultOptions.js");
 const spawnWorker = __webpack_require__(/*! ./spawnWorker */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/spawnWorker.js");
-const terminateWorker = __webpack_require__(/*! ./terminateWorker */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/terminateWorker.js");
 const onMessage = __webpack_require__(/*! ./onMessage */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/onMessage.js");
-const send = __webpack_require__(/*! ./send */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/send.js");
 const fetchFile = __webpack_require__(/*! ./fetchFile */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/fetchFile.js");
-const fs = __webpack_require__(/*! ./fs */ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/fs.js");
 
 module.exports = {
   defaultOptions,
   spawnWorker,
-  terminateWorker,
   onMessage,
-  send,
   fetchFile,
-  fs,
 };
 
 
@@ -584,27 +578,6 @@ module.exports = (worker, handler) => {
   worker.onmessage = ({ data }) => { // eslint-disable-line
     handler(data);
   };
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/send.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/worker/browser/send.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * send
- *
- * @name send
- * @function send packet to worker and create a job
- * @access public
- */
-module.exports = async (worker, packet) => {
-  worker.postMessage(packet);
 };
 
 
@@ -641,320 +614,36 @@ module.exports = ({ workerPath, workerBlobURL }) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ffmpeg/ffmpeg/src/worker/browser/terminateWorker.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@ffmpeg/ffmpeg/src/worker/browser/terminateWorker.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/is-electron/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/is-electron/index.js ***!
+  \*******************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-/**
- * terminateWorker
- *
- * @name terminateWorker
- * @function terminate worker
- * @access public
- */
-module.exports = (worker) => {
-  worker.terminate();
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/idb/build/esm/chunk.js":
-/*!*********************************************!*\
-  !*** ./node_modules/idb/build/esm/chunk.js ***!
-  \*********************************************/
-/*! exports provided: a, b, c, d, e */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return wrap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return addTraps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return instanceOfAny; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return reverseTransformCache; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return unwrap; });
-const instanceOfAny = (object, constructors) => constructors.some(c => object instanceof c);
-
-let idbProxyableTypes;
-let cursorAdvanceMethods;
-// This is a function to prevent it throwing up in node environments.
-function getIdbProxyableTypes() {
-    return (idbProxyableTypes ||
-        (idbProxyableTypes = [
-            IDBDatabase,
-            IDBObjectStore,
-            IDBIndex,
-            IDBCursor,
-            IDBTransaction,
-        ]));
-}
-// This is a function to prevent it throwing up in node environments.
-function getCursorAdvanceMethods() {
-    return (cursorAdvanceMethods ||
-        (cursorAdvanceMethods = [
-            IDBCursor.prototype.advance,
-            IDBCursor.prototype.continue,
-            IDBCursor.prototype.continuePrimaryKey,
-        ]));
-}
-const cursorRequestMap = new WeakMap();
-const transactionDoneMap = new WeakMap();
-const transactionStoreNamesMap = new WeakMap();
-const transformCache = new WeakMap();
-const reverseTransformCache = new WeakMap();
-function promisifyRequest(request) {
-    const promise = new Promise((resolve, reject) => {
-        const unlisten = () => {
-            request.removeEventListener('success', success);
-            request.removeEventListener('error', error);
-        };
-        const success = () => {
-            resolve(wrap(request.result));
-            unlisten();
-        };
-        const error = () => {
-            reject(request.error);
-            unlisten();
-        };
-        request.addEventListener('success', success);
-        request.addEventListener('error', error);
-    });
-    promise
-        .then(value => {
-        // Since cursoring reuses the IDBRequest (*sigh*), we cache it for later retrieval
-        // (see wrapFunction).
-        if (value instanceof IDBCursor) {
-            cursorRequestMap.set(value, request);
-        }
-        // Catching to avoid "Uncaught Promise exceptions"
-    })
-        .catch(() => { });
-    // This mapping exists in reverseTransformCache but doesn't doesn't exist in transformCache. This
-    // is because we create many promises from a single IDBRequest.
-    reverseTransformCache.set(promise, request);
-    return promise;
-}
-function cacheDonePromiseForTransaction(tx) {
-    // Early bail if we've already created a done promise for this transaction.
-    if (transactionDoneMap.has(tx))
-        return;
-    const done = new Promise((resolve, reject) => {
-        const unlisten = () => {
-            tx.removeEventListener('complete', complete);
-            tx.removeEventListener('error', error);
-            tx.removeEventListener('abort', error);
-        };
-        const complete = () => {
-            resolve();
-            unlisten();
-        };
-        const error = () => {
-            reject(tx.error);
-            unlisten();
-        };
-        tx.addEventListener('complete', complete);
-        tx.addEventListener('error', error);
-        tx.addEventListener('abort', error);
-    });
-    // Cache it for later retrieval.
-    transactionDoneMap.set(tx, done);
-}
-let idbProxyTraps = {
-    get(target, prop, receiver) {
-        if (target instanceof IDBTransaction) {
-            // Special handling for transaction.done.
-            if (prop === 'done')
-                return transactionDoneMap.get(target);
-            // Polyfill for objectStoreNames because of Edge.
-            if (prop === 'objectStoreNames') {
-                return target.objectStoreNames || transactionStoreNamesMap.get(target);
-            }
-            // Make tx.store return the only store in the transaction, or undefined if there are many.
-            if (prop === 'store') {
-                return receiver.objectStoreNames[1]
-                    ? undefined
-                    : receiver.objectStore(receiver.objectStoreNames[0]);
-            }
-        }
-        // Else transform whatever we get back.
-        return wrap(target[prop]);
-    },
-    has(target, prop) {
-        if (target instanceof IDBTransaction &&
-            (prop === 'done' || prop === 'store')) {
-            return true;
-        }
-        return prop in target;
-    },
-};
-function addTraps(callback) {
-    idbProxyTraps = callback(idbProxyTraps);
-}
-function wrapFunction(func) {
-    // Due to expected object equality (which is enforced by the caching in `wrap`), we
-    // only create one new func per func.
-    // Edge doesn't support objectStoreNames (booo), so we polyfill it here.
-    if (func === IDBDatabase.prototype.transaction &&
-        !('objectStoreNames' in IDBTransaction.prototype)) {
-        return function (storeNames, ...args) {
-            const tx = func.call(unwrap(this), storeNames, ...args);
-            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [storeNames]);
-            return wrap(tx);
-        };
+/* WEBPACK VAR INJECTION */(function(process) {// https://github.com/electron/electron/issues/2288
+function isElectron() {
+    // Renderer process
+    if (typeof window !== 'undefined' && typeof window.process === 'object' && window.process.type === 'renderer') {
+        return true;
     }
-    // Cursor methods are special, as the behaviour is a little more different to standard IDB. In
-    // IDB, you advance the cursor and wait for a new 'success' on the IDBRequest that gave you the
-    // cursor. It's kinda like a promise that can resolve with many values. That doesn't make sense
-    // with real promises, so each advance methods returns a new promise for the cursor object, or
-    // undefined if the end of the cursor has been reached.
-    if (getCursorAdvanceMethods().includes(func)) {
-        return function (...args) {
-            // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use
-            // the original object.
-            func.apply(unwrap(this), args);
-            return wrap(cursorRequestMap.get(this));
-        };
+
+    // Main process
+    if (typeof process !== 'undefined' && typeof process.versions === 'object' && !!process.versions.electron) {
+        return true;
     }
-    return function (...args) {
-        // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use
-        // the original object.
-        return wrap(func.apply(unwrap(this), args));
-    };
-}
-function transformCachableValue(value) {
-    if (typeof value === 'function')
-        return wrapFunction(value);
-    // This doesn't return, it just creates a 'done' promise for the transaction,
-    // which is later returned for transaction.done (see idbObjectHandler).
-    if (value instanceof IDBTransaction)
-        cacheDonePromiseForTransaction(value);
-    if (instanceOfAny(value, getIdbProxyableTypes()))
-        return new Proxy(value, idbProxyTraps);
-    // Return the same value back if we're not going to transform it.
-    return value;
-}
-function wrap(value) {
-    // We sometimes generate multiple promises from a single IDBRequest (eg when cursoring), because
-    // IDB is weird and a single IDBRequest can yield many responses, so these can't be cached.
-    if (value instanceof IDBRequest)
-        return promisifyRequest(value);
-    // If we've already transformed this value before, reuse the transformed value.
-    // This is faster, but it also provides object equality.
-    if (transformCache.has(value))
-        return transformCache.get(value);
-    const newValue = transformCachableValue(value);
-    // Not all types are transformed.
-    // These may be primitive types, so they can't be WeakMap keys.
-    if (newValue !== value) {
-        transformCache.set(value, newValue);
-        reverseTransformCache.set(newValue, value);
+
+    // Detect the user agent when the `nodeIntegration` option is set to true
+    if (typeof navigator === 'object' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Electron') >= 0) {
+        return true;
     }
-    return newValue;
-}
-const unwrap = (value) => reverseTransformCache.get(value);
 
-
-
-
-/***/ }),
-
-/***/ "./node_modules/idb/build/esm/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/idb/build/esm/index.js ***!
-  \*********************************************/
-/*! exports provided: unwrap, wrap, openDB, deleteDB */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openDB", function() { return openDB; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteDB", function() { return deleteDB; });
-/* harmony import */ var _chunk_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunk.js */ "./node_modules/idb/build/esm/chunk.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unwrap", function() { return _chunk_js__WEBPACK_IMPORTED_MODULE_0__["e"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "wrap", function() { return _chunk_js__WEBPACK_IMPORTED_MODULE_0__["a"]; });
-
-
-
-
-/**
- * Open a database.
- *
- * @param name Name of the database.
- * @param version Schema version.
- * @param callbacks Additional callbacks.
- */
-function openDB(name, version, { blocked, upgrade, blocking } = {}) {
-    const request = indexedDB.open(name, version);
-    const openPromise = Object(_chunk_js__WEBPACK_IMPORTED_MODULE_0__["a"])(request);
-    if (upgrade) {
-        request.addEventListener('upgradeneeded', event => {
-            upgrade(Object(_chunk_js__WEBPACK_IMPORTED_MODULE_0__["a"])(request.result), event.oldVersion, event.newVersion, Object(_chunk_js__WEBPACK_IMPORTED_MODULE_0__["a"])(request.transaction));
-        });
-    }
-    if (blocked)
-        request.addEventListener('blocked', () => blocked());
-    if (blocking) {
-        openPromise.then(db => db.addEventListener('versionchange', blocking)).catch(() => { });
-    }
-    return openPromise;
-}
-/**
- * Delete a database.
- *
- * @param name Name of the database.
- */
-function deleteDB(name, { blocked } = {}) {
-    const request = indexedDB.deleteDatabase(name);
-    if (blocked)
-        request.addEventListener('blocked', () => blocked());
-    return Object(_chunk_js__WEBPACK_IMPORTED_MODULE_0__["a"])(request).then(() => undefined);
+    return false;
 }
 
-const readMethods = ['get', 'getKey', 'getAll', 'getAllKeys', 'count'];
-const writeMethods = ['put', 'add', 'delete', 'clear'];
-const cachedMethods = new Map();
-function getMethod(target, prop) {
-    if (!(target instanceof IDBDatabase &&
-        !(prop in target) &&
-        typeof prop === 'string')) {
-        return;
-    }
-    if (cachedMethods.get(prop))
-        return cachedMethods.get(prop);
-    const targetFuncName = prop.replace(/FromIndex$/, '');
-    const useIndex = prop !== targetFuncName;
-    const isWrite = writeMethods.includes(targetFuncName);
-    if (
-    // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.
-    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||
-        !(isWrite || readMethods.includes(targetFuncName))) {
-        return;
-    }
-    const method = async function (storeName, ...args) {
-        // isWrite ? 'readwrite' : undefined gzipps better, but fails in Edge :(
-        const tx = this.transaction(storeName, isWrite ? 'readwrite' : 'readonly');
-        let target = tx.store;
-        if (useIndex)
-            target = target.index(args.shift());
-        const returnVal = target[targetFuncName](...args);
-        if (isWrite)
-            await tx.done;
-        return returnVal;
-    };
-    cachedMethods.set(prop, method);
-    return method;
-}
-Object(_chunk_js__WEBPACK_IMPORTED_MODULE_0__["b"])(oldTraps => ({
-    get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
-    has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop),
-}));
+module.exports = isElectron;
 
-
-
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

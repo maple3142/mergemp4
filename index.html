@@ -9,20 +9,24 @@
 	</head>
 
 	<body>
-		<div class="video filedrop">
+		<div class="block video fileDrop">
 			<h1>Drop mp4 video here</h1>
 			<input type="file" id="video">
 		</div>
-		<div class="audio filedrop">
+		<div class="block audio fileDrop">
 			<h1>Drop mp4 audio here</h1>
 			<input type="file" id="audio">
 		</div>
-		<form class="form">
+		<form class="block form">
 			<span>File name:</span>
 			<input type="text" name="filename" value="output.mp4">
-			<input type="submit" value="Genetate">
+			<input type="submit" value="Generate">
 		</form>
-		<div>
+		<div class="block output">
+			<h1>FFmpeg stderr:</h1>
+			<pre id="stderr"></pre>
+		</div>
+		<div class="block example">
 			<a href="./video.mp4">Example video</a>
 			<a href="./audio.mp4">Example audio</a>
 		</div>

@@ -20,12 +20,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var _require = __webpack_require__(/*! @ffmpeg/ffmpeg */ "./node_modules/@ffmpeg/ffmpeg/src/index.js"),
     createWorker = _require.createWorker;
 
-var readFile =
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(file) {
+var readFile = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(file) {
     return C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -81,21 +77,25 @@ $audio.addEventListener('drop', function (e) {
 $audio.addEventListener('dragover', function (e) {
   e.preventDefault();
 });
-var worker = createWorker();
-worker.load();
+var worker = createWorker({
+  logger: function logger(m) {
+    if (m.type === 'stderr') {
+      stderr.textContent += m.message + '\n';
+    }
+  }
+});
+worker.load().then(function () {
+  return console.log('load done');
+});
 
 var ext = function ext(name) {
   return name.split('.').pop();
 };
 
 var $form = $('.form');
-$form.addEventListener('submit',
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
-  /*#__PURE__*/
-  C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-    var video, audio, vidname, audname, outext, _ref3, data, url;
+$form.addEventListener('submit', /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+    var video, audio, vidName, audName, outExt, _ref3, data, url;
 
     return C_Users_maple3142_Documents_GitHub_mergemp4_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
@@ -114,11 +114,11 @@ function () {
             return _context2.abrupt("return");
 
           case 6:
-            vidname = 'video.' + ext(video.name.split('.').pop());
-            audname = 'audio.' + ext(audio.name.split('.').pop());
-            outext = ext(video.name);
+            vidName = 'video.' + ext(video.name.split('.').pop());
+            audName = 'audio.' + ext(audio.name.split('.').pop());
+            outExt = ext(video.name);
             _context2.t0 = worker;
-            _context2.t1 = vidname;
+            _context2.t1 = vidName;
             _context2.next = 13;
             return readFile(video);
 
@@ -129,7 +129,7 @@ function () {
 
           case 16:
             _context2.t3 = worker;
-            _context2.t4 = audname;
+            _context2.t4 = audName;
             _context2.next = 20;
             return readFile(audio);
 
@@ -140,14 +140,14 @@ function () {
 
           case 23:
             _context2.next = 25;
-            return worker.run("-i /data/".concat(vidname, " -i /data/").concat(audname, " -c copy output.").concat(outext), {
-              input: [vidname, audname],
-              output: 'output.' + outext
+            return worker.run("-i ".concat(vidName, " -i ").concat(audName, " -c copy output.").concat(outExt), {
+              input: [vidName, audName],
+              output: 'output.' + outExt
             });
 
           case 25:
             _context2.next = 27;
-            return worker.read('output.' + outext);
+            return worker.read('output.' + outExt);
 
           case 27:
             _ref3 = _context2.sent;
