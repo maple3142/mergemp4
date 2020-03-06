@@ -114,8 +114,8 @@ $form.addEventListener('submit', /*#__PURE__*/function () {
             return _context2.abrupt("return");
 
           case 6:
-            vidName = 'video.' + ext(video.name.split('.').pop());
-            audName = 'audio.' + ext(audio.name.split('.').pop());
+            vidName = 'video.' + ext(video.name);
+            audName = 'audio.' + ext(audio.name);
             outExt = ext(video.name);
             _context2.t0 = worker;
             _context2.t1 = vidName;
@@ -152,10 +152,14 @@ $form.addEventListener('submit', /*#__PURE__*/function () {
           case 27:
             _ref3 = _context2.sent;
             data = _ref3.data;
+            _context2.next = 31;
+            return worker.remove('output.' + outExt);
+
+          case 31:
             url = URL.createObjectURL(new Blob([data]));
             download(url, $('.form>input[name=filename]').value);
 
-          case 31:
+          case 33:
           case "end":
             return _context2.stop();
         }
